@@ -1,0 +1,10 @@
+Id,Name,Quantity,ReOrderLevel,Category,Company
+1,Air jordon,1000,100,Sneakers,RanCon
+2,Television,1000,100,Furnitures,Gada Electronics
+3,Dining Table,1000,100,Furnitures,RanCon
+4,Air jordon LM10,900,100,Sneakers,RanCon
+5,Iphone 15 pro Max,800,100,Electronics,Apple
+6,Washing Machine,500,100,Furnitures,Walton 
+7,MacBook,858,100,Electronics,Apple
+8,Iphone 13 pro Max,900,100,Electronics,Apple
+9,Apple Watch,945,100,Electronics,Apple

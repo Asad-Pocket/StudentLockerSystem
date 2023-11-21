@@ -1,0 +1,23 @@
+﻿@*
+@model LoginViewModel
+@{
+   object studentDetails =  ViewData["Details"];
+}
+
+<h2>User Profile</h2>
+
+<dl>
+    <dt>Username:</dt>
+    <dd>@studentDetails.Username</dd>
+
+    <dt>Email:</dt>
+    <dd>@studentDetails.Email</dd>
+
+    <dt>First Name:</dt>
+    <dd>@studentDetails.FirstName</dd>
+
+    <dt>Last Name:</dt>
+    <dd>@studentDetails.LastName</dd>
+</dl>
+
+*@

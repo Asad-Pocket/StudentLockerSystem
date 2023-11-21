@@ -1,0 +1,143 @@
+﻿@model List<System.IO.FileInfo>
+@{
+    Layout = "_Layout";
+}
+
+<style>
+    body {
+        background-image: url('https://img.freepik.com/free-vector/flat-design-forest-landscape_23-2149155031.jpg?w=740&t=st=1700498857~exp=1700499457~hmac=bb48847c6b231c502f180b08e6e9d55ba8dd3ce7f9f18173320e15a53675e047');
+        background-size: cover;
+    }
+
+    .container {
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 3px;
+    }
+
+    .file-card {
+        margin-bottom: 20px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: rgba(253, 251, 242, .6);
+        color: black; /* Set the font color to black */
+    }
+
+        .file-card:hover {
+            box-shadow: 0 4px 8px rgba(236, 35, 22, 1);
+        }
+
+    .file-card-title {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .file-card-subtitle {
+        font-size: 14px;
+        color: #666;
+    }
+
+    .h2 {
+        font-weight: bold;
+        font-display: block;
+        color: white
+    }
+
+    .btn-group {
+        margin-top: 10px;
+    }
+
+    .title {
+        font-weight: bold;
+        color: aliceblue;
+    }
+
+    ._form {
+        box-shadow: 0 4px 8px rgba(236, 35, 22, 1)
+    }
+</style>
+
+
+<div class="title">
+    <h1><b>Gallary</b></h1>
+</div>
+<div class="container">
+    <div class="_form">
+        <form action="@Url.Action("Photos", "Gallary")" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <input type="file" class="form-control" name="myFile" />
+                </div>
+                <div class="form-group col-md-6">
+                    <button type="submit" class="btn btn-outline-success">Upload</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <p>
+    <p>
+
+    </p>
+    </p>
+    <!-- File Preview Modal -->
+    <div class="modal fade" id="filePreviewModal" tabindex="-1" role="dialog" aria-labelledby="filePreviewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="filePreviewModalLabel">File Preview</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img id="previewImage" class="img-fluid" alt="File Preview" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var file in Model)
+            {
+                <div class="col-md-4">
+                    <div class="file-card">
+                        <p class="file-card-title">@file.Name</p>
+                        <p class="file-card-subtitle">Last Modified: @file.LastWriteTime</p>
+                        <div class="btn-group">
+                            <button class="btn btn-outline-success" onclick="previewFile('@file.Name')">Preview</button>
+                            <button class="btn btn-outline-primary" onclick="renameFile('@file.Name')">Rename</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>No files found.</p>
+        }
+    </div>
+</div>
+
+<script>
+    function previewFile(fileName) {
+        var previewModal = $('#filePreviewModal');
+        var previewImage = $('#previewImage');
+
+        // Set the source of the preview image
+        previewImage.attr('src', '@Url.Action("PreviewImage", "Gallary")?filename=' + encodeURIComponent(fileName));
+
+        // Show the modal
+        previewModal.modal('show');
+    }
+    function renameFile(currentFileName) {
+        var newFileName = prompt("Enter a new name for the file:", currentFileName);
+
+        if (newFileName != null && newFileName !== "") {
+            // Perform the rename action
+            window.location.href = '@Url.Action("Rename", "Gallary")?currentFileName=' + encodeURIComponent(currentFileName) + '&newFileName=' + encodeURIComponent(newFileName);
+        }
+    }
+</script>

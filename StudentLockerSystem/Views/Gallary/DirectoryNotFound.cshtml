@@ -1,0 +1,68 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h2>Directory Not Found</h2>
+<p>The directory for the student does not exist.</p>
+@*@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>File Name</th>
+                <th>Last Modified</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var file in Model)
+            {
+                <tr>
+                    <td>@file.Name</td>
+                    <td>@file.LastWriteTime</td>
+                    <td>
+                        @if (Html.Action("IsImage", "Gallary", new { extension = file.Extension }))
+                        {
+                            <img src="@Url.Action("Download", "Gallary", new { filename = file.Name })" alt="Image" />
+                        }
+                        else if (Html.Action("IsPdf", "Gallary", new { extension = file.Extension }))
+                        {
+                            <a asp-action="Download" asp-controller="Gallary" asp-route-filename="@file.Name">
+                                <img src="path-to-pdf-icon.png" alt="PDF" />
+                            </a>
+                        }
+                        else if (Html.Action("IsExcel", "Gallary", new { extension = file.Extension }))
+                        {
+                            <a asp-action="Download" asp-controller="Gallary" asp-route-filename="@file.Name">
+                                <img src="path-to-excel-icon.png" alt="Excel" />
+                            </a>
+                        }
+                        else if (Html.Action("IsWord", "Gallary", new { extension = file.Extension }))
+                        {
+                            <a asp-action="Download" asp-controller="Gallary" asp-route-filename="@file.Name">
+                                <img src="path-to-word-icon.png" alt="Word" />
+                            </a>
+                        }
+                        else if (Html.Action("IsZip", "Gallary", new { extension = file.Extension }))
+                        {
+                            <a asp-action="Download" asp-controller="Gallary" asp-route-filename="@file.Name">
+                                <img src="path-to-zip-icon.png" alt="ZIP" />
+                            </a>
+                        }
+                        else if (Html.Action("IsText", "Gallary", new { extension = file.Extension }))
+                        {
+                            <a asp-action="Download" asp-controller="Gallary" asp-route-filename="@file.Name">
+                                <img src="path-to-text-icon.png" alt="Text" />
+                            </a>
+                        }
+                        else
+                        {
+                            <span>Unknown file type</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}*@
